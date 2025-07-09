@@ -1,0 +1,14 @@
+package com.springboot.linkedin.posts_service.service;
+
+import com.springboot.linkedin.posts_service.repository.PostRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class PostService {
+
+    private final PostRepository postRepository;
+}
