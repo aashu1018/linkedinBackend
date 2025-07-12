@@ -2,13 +2,14 @@ package com.springboot.linkedin.posts_service.controller;
 
 import com.springboot.linkedin.posts_service.dto.PostCreateRequestDTO;
 import com.springboot.linkedin.posts_service.dto.PostDTO;
-import com.springboot.linkedin.posts_service.entity.Post;
 import com.springboot.linkedin.posts_service.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
@@ -27,5 +28,11 @@ public class PostController {
     public ResponseEntity<PostDTO> getPost(@PathVariable Long postId){
         PostDTO postDTO = postService.getPostById(postId);
         return ResponseEntity.ok(postDTO);
+    }
+
+    @GetMapping("/users/{userId}/allPosts")
+    public ResponseEntity<List<PostDTO>> getAllPosts(@PathVariable Long userId){
+        List<PostDTO> posts = postService.getAllPostsOfUser(userId);
+        return ResponseEntity.ok(posts);
     }
 }
