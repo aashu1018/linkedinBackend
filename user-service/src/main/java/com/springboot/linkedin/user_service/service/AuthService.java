@@ -23,6 +23,12 @@ public class AuthService {
     private final JWTService jwtService;
 
     public UserDTO signup(SignupRequestDTO requestDTO) {
+
+        boolean exists = userRepository.existsByEmail(requestDTO.getEmail());
+        if(exists){
+            throw new BadRequestException("User already exists. Cannot signup again!");
+        }
+
         User user = modelMapper.map(requestDTO, User.class);
         user.setPassword(PasswordUtil.hashPassword(requestDTO.getPassword()));
 
