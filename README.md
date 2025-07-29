@@ -6,8 +6,6 @@ This project is a scalable backend clone of **LinkedIn**, built using **Spring B
 
 ## 📌 Architecture Overview
 
-![Architecture Diagram](./bb047768-592e-4de1-af4f-d4e80733e072.png)
-
 The application uses:
 - **Spring Cloud Gateway** as the API Gateway
 - **Eureka** for Service Discovery
@@ -57,16 +55,6 @@ Each service runs independently and communicates via REST and Kafka:
 - `GET /notifications/{userId}` — Get all notifications
 - `POST /notifications/mark-as-read` — Mark notifications as read
 
-![API Overview](./12cb4b22-86ee-4e77-954b-a204333e795e.png)
-
----
-
-## 🧾 Domain Model
-
-The system includes clearly defined domains with normalized schema:
-
-![Database Schema](./60f6eb8b-3125-4b9e-b166-51181b071797.png)
-
 ---
 
 ## 🔁 Inter-service Communication
@@ -74,8 +62,6 @@ The system includes clearly defined domains with normalized schema:
 Inter-service calls are handled via:
 - **Feign Clients** for synchronous REST calls
 - **Kafka Topics** for asynchronous event-driven communication (e.g., post like → trigger notification)
-
-![Inter-service Flow](./d4f6e173-bbad-4b54-b696-016409d532a8.png)
 
 ---
 
