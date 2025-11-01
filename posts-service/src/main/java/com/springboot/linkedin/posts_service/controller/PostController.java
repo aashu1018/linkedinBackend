@@ -1,5 +1,6 @@
 package com.springboot.linkedin.posts_service.controller;
 
+import com.springboot.linkedin.posts_service.auth.UserContextHolder;
 import com.springboot.linkedin.posts_service.dto.PostCreateRequestDTO;
 import com.springboot.linkedin.posts_service.dto.PostDTO;
 import com.springboot.linkedin.posts_service.service.PostService;
@@ -25,8 +26,10 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostDTO> getPost(@PathVariable Long postId, HttpServletRequest httpServletRequest){
-        String userId = httpServletRequest.getHeader("X-User-Id");
+    public ResponseEntity<PostDTO> getPost(@PathVariable Long postId){
+
+        Long userId = UserContextHolder.getCurrentUserId();
+
         PostDTO postDTO = postService.getPostById(postId);
         return ResponseEntity.ok(postDTO);
     }
