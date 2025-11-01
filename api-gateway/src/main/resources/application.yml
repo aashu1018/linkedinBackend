@@ -9,6 +9,8 @@ jwt.secretKey: hduidhuifhvbbkjlnhfgoijediojvlikjbmlkfmnjbklgjhiorkjoekjmfkijmbfl
 spring:
   cloud:
     gateway:
+      server:
+        webflux:
       routes:
         - id: user-service
           uri: lb://USER-SERVICE
@@ -30,3 +32,4 @@ spring:
             - Path=/api/v1/connections/**
           filters:
             - StripPrefix=2
+            - name: AuthenticationFilter

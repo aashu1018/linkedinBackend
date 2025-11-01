@@ -25,7 +25,8 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<PostDTO> getPost(@PathVariable Long postId){
+    public ResponseEntity<PostDTO> getPost(@PathVariable Long postId, HttpServletRequest httpServletRequest){
+        String userId = httpServletRequest.getHeader("X-User-Id");
         PostDTO postDTO = postService.getPostById(postId);
         return ResponseEntity.ok(postDTO);
     }
