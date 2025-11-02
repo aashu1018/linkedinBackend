@@ -1,6 +1,8 @@
 package com.springboot.linkedin.posts_service.controller;
 
 import com.springboot.linkedin.posts_service.auth.UserContextHolder;
+import com.springboot.linkedin.posts_service.clients.ConnectionsClient;
+import com.springboot.linkedin.posts_service.dto.PersonDTO;
 import com.springboot.linkedin.posts_service.dto.PostCreateRequestDTO;
 import com.springboot.linkedin.posts_service.dto.PostDTO;
 import com.springboot.linkedin.posts_service.service.PostService;
@@ -18,6 +20,7 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final ConnectionsClient connectionsClient;
 
     @PostMapping
     public ResponseEntity<PostDTO> createPost(@RequestBody PostCreateRequestDTO postDTO, HttpServletRequest httpServletRequest){
@@ -29,6 +32,8 @@ public class PostController {
     public ResponseEntity<PostDTO> getPost(@PathVariable Long postId){
 
         Long userId = UserContextHolder.getCurrentUserId();
+
+        List<PersonDTO> firstConnections = connectionsClient.getFirstConnections(userId);
 
         PostDTO postDTO = postService.getPostById(postId);
         return ResponseEntity.ok(postDTO);

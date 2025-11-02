@@ -1,5 +1,6 @@
 package com.springboot.linkedin.posts_service.service;
 
+import com.springboot.linkedin.posts_service.auth.UserContextHolder;
 import com.springboot.linkedin.posts_service.dto.PostCreateRequestDTO;
 import com.springboot.linkedin.posts_service.dto.PostDTO;
 import com.springboot.linkedin.posts_service.entity.Post;
@@ -29,6 +30,9 @@ public class PostService {
     }
 
     public PostDTO getPostById(Long postId) {
+
+        Long userId = UserContextHolder.getCurrentUserId();
+
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
         return modelMapper.map(post, PostDTO.class);
