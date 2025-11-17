@@ -1,6 +1,8 @@
 package com.springboot.linkedin.posts_service.service;
 
 import com.springboot.linkedin.posts_service.auth.UserContextHolder;
+import com.springboot.linkedin.posts_service.clients.ConnectionsClient;
+import com.springboot.linkedin.posts_service.dto.PersonDTO;
 import com.springboot.linkedin.posts_service.dto.PostCreateRequestDTO;
 import com.springboot.linkedin.posts_service.dto.PostDTO;
 import com.springboot.linkedin.posts_service.entity.Post;
@@ -22,6 +24,7 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
+    private final ConnectionsClient connectionsClient;
 
     private final KafkaTemplate<Long, PostCreatedEvent> kafkaTemplate;
 
@@ -45,6 +48,8 @@ public class PostService {
     public PostDTO getPostById(Long postId) {
 
         Long userId = UserContextHolder.getCurrentUserId();
+
+        List<PersonDTO> firstConnections = connectionsClient.getFirstConnections(userId);
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
