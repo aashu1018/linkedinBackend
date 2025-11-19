@@ -49,7 +49,7 @@ public class PostService {
 
         Long userId = UserContextHolder.getCurrentUserId();
 
-        List<PersonDTO> firstConnections = connectionsClient.getFirstConnections(userId);
+        List<PersonDTO> firstConnections = connectionsClient.getFirstConnections();
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with id: " + postId));
