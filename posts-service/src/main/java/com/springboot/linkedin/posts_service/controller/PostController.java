@@ -33,7 +33,7 @@ public class PostController {
 
         Long userId = UserContextHolder.getCurrentUserId();
 
-        List<PersonDTO> firstConnections = connectionsClient.getFirstConnections(userId);
+        List<PersonDTO> firstConnections = connectionsClient.getFirstConnections();
 
         PostDTO postDTO = postService.getPostById(postId);
         return ResponseEntity.ok(postDTO);
